@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CS246 Project</string>
+    <string name="title_activity_grids">GridsActivity</string>
 </resources>
