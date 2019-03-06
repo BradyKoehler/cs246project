@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 //here to skip putting in user and password
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, NavMainActivity.class));
 
                 //commented out for now, to just go to the next activity
                 //attemptLogin();

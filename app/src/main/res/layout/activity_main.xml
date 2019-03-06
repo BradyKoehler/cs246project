@@ -63,4 +63,12 @@
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
         app:layout_constraintTop_toTopOf="@+id/toolbar2" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DONT USE THIS PAGE"
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="274dp" />
+
 </android.support.constraint.ConstraintLayout>
