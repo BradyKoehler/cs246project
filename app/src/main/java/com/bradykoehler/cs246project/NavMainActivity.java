@@ -47,8 +47,7 @@ public class NavMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Grids view
-
+        // Grids list view
 
         recyclerView = findViewById(R.id.grids);
 
@@ -60,18 +59,30 @@ public class NavMainActivity extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        String[] myDataset = new String[7];
+        Grid[] myDataset = new Grid[19];
 
-        myDataset[0] = "hello";
-        myDataset[1] = "world";
-        myDataset[2] = "my";
-        myDataset[3] = "name";
-        myDataset[4] = "is";
-        myDataset[5] = "brady";
-        myDataset[6] = "koehler";
+        myDataset[0] = new Grid("hello");
+        myDataset[1] = new Grid("world");
+        myDataset[2] = new Grid("my");
+        myDataset[3] = new Grid("name");
+        myDataset[4] = new Grid("is");
+        myDataset[5] = new Grid("brady");
+        myDataset[6] = new Grid("koehler");
+        myDataset[7] = new Grid("world");
+        myDataset[8] = new Grid("my");
+        myDataset[9] = new Grid("name");
+        myDataset[10] = new Grid("is");
+        myDataset[11] = new Grid("brady");
+        myDataset[12] = new Grid("koehler");
+        myDataset[13] = new Grid("world");
+        myDataset[14] = new Grid("my");
+        myDataset[15] = new Grid("name");
+        myDataset[16] = new Grid("is");
+        myDataset[17] = new Grid("brady");
+        myDataset[18] = new Grid("koehler");
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new GridsAdapter(myDataset);
         recyclerView.setAdapter(mAdapter);
     }
 
