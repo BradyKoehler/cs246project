@@ -8,6 +8,13 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/grids"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dip"
+        android:scrollbars="vertical" />
+
     <include
         layout="@layout/app_bar_nav_main"
         android:layout_width="match_parent"
@@ -20,6 +27,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_nav_main"
-        app:menu="@menu/activity_nav_main_drawer" />
+        app:menu="@menu/activity_nav_main_drawer" >
+
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

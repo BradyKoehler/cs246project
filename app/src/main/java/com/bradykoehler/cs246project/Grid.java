@@ -5,6 +5,12 @@ public class Grid {
     private int width;
     private int height;
 
+    public Grid(String name) {
+        this.name = name;
+        this.width = 3;
+        this.height = 3;
+    }
+
     public String getName() {
         return name;
     }

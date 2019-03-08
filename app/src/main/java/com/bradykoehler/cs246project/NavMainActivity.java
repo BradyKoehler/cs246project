@@ -3,6 +3,8 @@ package com.bradykoehler.cs246project;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,10 @@ import android.view.MenuItem;
 
 public class NavMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,44 @@ public class NavMainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Grids list view
+
+        recyclerView = findViewById(R.id.grids);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        Grid[] myDataset = new Grid[19];
+
+        myDataset[0] = new Grid("hello");
+        myDataset[1] = new Grid("world");
+        myDataset[2] = new Grid("my");
+        myDataset[3] = new Grid("name");
+        myDataset[4] = new Grid("is");
+        myDataset[5] = new Grid("brady");
+        myDataset[6] = new Grid("koehler");
+        myDataset[7] = new Grid("world");
+        myDataset[8] = new Grid("my");
+        myDataset[9] = new Grid("name");
+        myDataset[10] = new Grid("is");
+        myDataset[11] = new Grid("brady");
+        myDataset[12] = new Grid("koehler");
+        myDataset[13] = new Grid("world");
+        myDataset[14] = new Grid("my");
+        myDataset[15] = new Grid("name");
+        myDataset[16] = new Grid("is");
+        myDataset[17] = new Grid("brady");
+        myDataset[18] = new Grid("koehler");
+
+        // specify an adapter (see also next example)
+        mAdapter = new GridsAdapter(myDataset);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
