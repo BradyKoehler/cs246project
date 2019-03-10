@@ -1,9 +1,13 @@
 package com.bradykoehler.cs246project;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private String[] mDataset;
@@ -25,6 +29,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         mDataset = myDataset;
     }
 
+    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
+
     // Create new views (invoked by the layout manager)
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
@@ -33,6 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.grid_list_item, parent, false);
         // ...
+        v.setOnClickListener(mOnClickListener);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
