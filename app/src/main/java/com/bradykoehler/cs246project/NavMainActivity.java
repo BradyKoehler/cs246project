@@ -62,24 +62,17 @@ public class NavMainActivity extends AppCompatActivity
         Grid[] myDataset = new Grid[19];
 
         myDataset[0] = new Grid("hello");
-        myDataset[1] = new Grid("world");
+        myDataset[1] = new Grid("darkness");
         myDataset[2] = new Grid("my");
-        myDataset[3] = new Grid("name");
-        myDataset[4] = new Grid("is");
-        myDataset[5] = new Grid("brady");
-        myDataset[6] = new Grid("koehler");
-        myDataset[7] = new Grid("world");
-        myDataset[8] = new Grid("my");
-        myDataset[9] = new Grid("name");
-        myDataset[10] = new Grid("is");
-        myDataset[11] = new Grid("brady");
-        myDataset[12] = new Grid("koehler");
-        myDataset[13] = new Grid("world");
-        myDataset[14] = new Grid("my");
-        myDataset[15] = new Grid("name");
-        myDataset[16] = new Grid("is");
-        myDataset[17] = new Grid("brady");
-        myDataset[18] = new Grid("koehler");
+        myDataset[3] = new Grid("old");
+        myDataset[4] = new Grid("friend");
+        myDataset[5] = new Grid("i've");
+        myDataset[6] = new Grid("come");
+        myDataset[7] = new Grid("to");
+        myDataset[8] = new Grid("see");
+        myDataset[9] = new Grid("you");
+        myDataset[10] = new Grid("again");
+        
 
         // specify an adapter (see also next example)
         mAdapter = new GridsAdapter(myDataset);
