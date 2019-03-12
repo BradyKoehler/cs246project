@@ -20,20 +20,20 @@ public class ActivityTileSel extends AppCompatActivity {
         setContentView(R.layout.activity_tile_sel);
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         recyclerView = findViewById(R.id.tiles);
 
@@ -45,7 +45,7 @@ public class ActivityTileSel extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        String[] myDataset = new String[100];
+        String [] myDataset = new String[100];
 
         myDataset[0] = "I'm";
         myDataset[1] = "just";

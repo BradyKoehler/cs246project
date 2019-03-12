@@ -26,6 +26,6 @@ public class GridActivity extends AppCompatActivity {
     }
 
     public void selectTile(View view) {
-//        startActivity(new Intent(GridActivity.this, ActivityTileSel.class));
+        startActivity(new Intent(GridActivity.this, ActivityTileSel.class));
     }
 }
