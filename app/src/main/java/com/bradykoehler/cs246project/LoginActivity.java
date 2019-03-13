@@ -143,6 +143,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 editor.putString("password", password);
                 editor.commit();
 
+                Log.i("LoginActivity", "User successfully logged in.");
+
                 startActivity(new Intent(LoginActivity.this, NavMainActivity.class));
 
                 //commented out for now, to just go to the next activity
