@@ -15,12 +15,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bradykoehler.cs246project.api.AcaApi;
+
 public class NavMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
+//    public Grid[] gridsList = new Grid[0];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,30 +63,38 @@ public class NavMainActivity extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        Grid[] myDataset = new Grid[19];
+        AcaApi.getInstance().getGrids(this);
 
-        myDataset[0] = new Grid("hello");
-        myDataset[1] = new Grid("world");
-        myDataset[2] = new Grid("my");
-        myDataset[3] = new Grid("name");
-        myDataset[4] = new Grid("is");
-        myDataset[5] = new Grid("brady");
-        myDataset[6] = new Grid("koehler");
-        myDataset[7] = new Grid("world");
-        myDataset[8] = new Grid("my");
-        myDataset[9] = new Grid("name");
-        myDataset[10] = new Grid("is");
-        myDataset[11] = new Grid("brady");
-        myDataset[12] = new Grid("koehler");
-        myDataset[13] = new Grid("world");
-        myDataset[14] = new Grid("my");
-        myDataset[15] = new Grid("name");
-        myDataset[16] = new Grid("is");
-        myDataset[17] = new Grid("brady");
-        myDataset[18] = new Grid("koehler");
+//        Grid[] myDataset = new Grid[19];
+
+//        myDataset[0] = new Grid("hello");
+//        myDataset[1] = new Grid("world");
+//        myDataset[2] = new Grid("my");
+//        myDataset[3] = new Grid("name");
+//        myDataset[4] = new Grid("is");
+//        myDataset[5] = new Grid("brady");
+//        myDataset[6] = new Grid("koehler");
+//        myDataset[7] = new Grid("world");
+//        myDataset[8] = new Grid("my");
+//        myDataset[9] = new Grid("name");
+//        myDataset[10] = new Grid("is");
+//        myDataset[11] = new Grid("brady");
+//        myDataset[12] = new Grid("koehler");
+//        myDataset[13] = new Grid("world");
+//        myDataset[14] = new Grid("my");
+//        myDataset[15] = new Grid("name");
+//        myDataset[16] = new Grid("is");
+//        myDataset[17] = new Grid("brady");
+//        myDataset[18] = new Grid("koehler");
 
         // specify an adapter (see also next example)
-        mAdapter = new GridsAdapter(myDataset);
+//        mAdapter = new GridsAdapter(myDataset);
+//        mAdapter = new GridsAdapter(gridsList);
+//        recyclerView.setAdapter(mAdapter);
+    }
+
+    public void loadGrids(Grid[] newGridsList) {
+        mAdapter = new GridsAdapter(newGridsList);
         recyclerView.setAdapter(mAdapter);
     }
 
