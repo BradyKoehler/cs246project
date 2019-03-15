@@ -1,6 +1,10 @@
 package com.bradykoehler.cs246project;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Grid {
+    @SerializedName("grid_id")
+    private int id;
     private String name;
     private int width;
     private int height;
@@ -10,6 +14,8 @@ public class Grid {
         this.width = 3;
         this.height = 3;
     }
+
+    public int getId() { return id; }
 
     public String getName() {
         return name;
