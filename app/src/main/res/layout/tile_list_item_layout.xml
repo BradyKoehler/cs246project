@@ -10,31 +10,31 @@
         android:layout_height="117dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tilename"
+            android:id="@+id/tileName"
             android:layout_width="115dp"
             android:layout_height="64dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="79dp"
-            android:layout_marginLeft="79dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="73dp"
-            android:layout_marginRight="73dp"
-            android:layout_marginBottom="28dp"
-            android:layout_toEndOf="@+id/tileimage"
-            android:layout_toRightOf="@+id/tileimage"
+            android:layout_marginStart="76dp"
+            android:layout_marginLeft="76dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginRight="76dp"
+            android:layout_marginBottom="24dp"
+            android:layout_toEndOf="@+id/tileImage"
+            android:layout_toRightOf="@+id/tileImage"
             android:text="TextView"
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/tileimage"
+            android:id="@+id/tileImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:srcCompat="@tools:sample/avatars" />

@@ -13,7 +13,12 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ActivityTileSel"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".GridActivity" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".GridActivity" />
+        </activity>
         <activity
             android:name=".NavMainActivity"
             android:label="@string/title_activity_nav_main"

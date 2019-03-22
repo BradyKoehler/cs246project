@@ -24,7 +24,8 @@ public class NavMainActivity extends AppCompatActivity
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-//    public Grid[] gridsList = new Grid[0];
+//    public Grid[] gridsList = new Grid[1];
+//    gridsList[0] = new Grid()
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
