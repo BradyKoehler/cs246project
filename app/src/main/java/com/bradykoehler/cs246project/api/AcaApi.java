@@ -140,7 +140,7 @@ public class AcaApi {
                             @Override
                             public void run() {
                                 Log.d("AcaApi", "Attempting to load images");
-                                // Do something with the list of images here
+                                main.get().getImages(images);
                             }
                         });
                     }
