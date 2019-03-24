@@ -4,10 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -87,24 +85,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-
-
-
-
-//        SharedPreferences loginData = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-//        SharedPreferences.Editor editor = loginData.edit();
-//        int id = 1;
-//        String username = "john";
-//        editor.putString(username, "username");
-//        editor.putInt("id", id);
-//
-//        editor.apply();
-//        SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-//
-//        String cookieName = mSettings.getString("cookieName", "missing");
-
-        // Check SharedPreferences for saved login data
-//        SharedPreferences loginData = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         SharedPreferences loginData = LoginActivity.this.getSharedPreferences("loginData", Context.MODE_PRIVATE);
         String loginEmail = loginData.getString("email", null);
         String loginPassword = loginData.getString("password", null);
@@ -126,29 +106,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //here to skip putting in user and password
-
+//
                 EditText emailEdit = findViewById(R.id.email);
                 String email = emailEdit.getText().toString();
-                Log.d("Login Activity", "Email input is: " + email);
 
                 EditText passwordEdit = findViewById(R.id.password);
-                String password = passwordEdit.getText().toString();
-                Log.d("Login Activity", "Password input is: " + password);
+                final String password = passwordEdit.getText().toString();
 
-//                SharedPreferences loginData = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                 SharedPreferences loginData = LoginActivity.this.getSharedPreferences("loginData", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = loginData.edit();
                 editor.putString("email", email);
                 editor.putString("password", password);
                 editor.commit();
 
-                Log.i("LoginActivity", "User successfully logged in.");
-
-                startActivity(new Intent(LoginActivity.this, NavMainActivity.class));
-
-                //commented out for now, to just go to the next activity
-                //attemptLogin();
+                Cognito auth = new Cognito(getApplicationContext());
+                auth.userLogin(email, password);
             }
         });
 
