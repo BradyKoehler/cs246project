@@ -38,149 +38,113 @@ public class GridActivity extends AppCompatActivity {
         });
     }
 
+    private void playAudio(String url) {
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        try {
+            mediaPlayer.setDataSource(url);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+            // TODO determine how to properly release the MediaPlayer object
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getBtnNumberFromId(int id) {
+        switch (id) {
+            case (R.id.imageButton0): {
+                return 0;
+            }
+            case (R.id.imageButton1): {
+                return 1;
+            }
+            case (R.id.imageButton2): {
+                return 2;
+            }
+            case (R.id.imageButton3): {
+                return 3;
+            }
+            case (R.id.imageButton4): {
+                return 4;
+            }
+            case (R.id.imageButton5): {
+                return 5;
+            }
+            case (R.id.imageButton6): {
+                return 6;
+            }
+            case (R.id.imageButton7): {
+                return 7;
+            }
+            case (R.id.imageButton8): {
+                return 8;
+            }
+        }
+
+        return 0;
+    }
+
+    private int getIdFromBtnNumber(int id) {
+        int btnList[] = {
+                R.id.imageButton0,
+                R.id.imageButton1,
+                R.id.imageButton2,
+                R.id.imageButton3,
+                R.id.imageButton4,
+                R.id.imageButton5,
+                R.id.imageButton6,
+                R.id.imageButton7,
+                R.id.imageButton8
+        };
+        return  btnList[id];
+    }
+
     public void selectTile(View view) {
-        ImageButton imgBtn = (ImageButton) view;
         if (view.getTag() == "set") {
             String url = view.getTag(view.getId()).toString();
-            Uri myUri = Uri.parse(url);
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(url);
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mediaPlayer.prepare(); //don't use prepareAsync for mp3 playback
-                mediaPlayer.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            playAudio(url);
         } else {
+            int imgBtnId = getBtnNumberFromId(view.getId());
+            Intent intent = new Intent(GridActivity.this, ActivityTileSel.class);
 
-            int imgBtnId = 0;
-
-            switch (view.getId()) {
-                case (R.id.imageButton0): {
-                    imgBtnId = 0;
-                    break;
-                }
-                case (R.id.imageButton1): {
-                    imgBtnId = 1;
-                    break;
-                }
-                case (R.id.imageButton2): {
-                    imgBtnId = 2;
-                    break;
-                }
-                case (R.id.imageButton3): {
-                    imgBtnId = 3;
-                    break;
-                }
-                case (R.id.imageButton4): {
-                    imgBtnId = 4;
-                    break;
-                }
-                case (R.id.imageButton5): {
-                    imgBtnId = 5;
-                    break;
-                }
-                case (R.id.imageButton6): {
-                    imgBtnId = 6;
-                    break;
-                }
-                case (R.id.imageButton7): {
-                    imgBtnId = 7;
-                    break;
-                }
-                case (R.id.imageButton8): {
-                    imgBtnId = 8;
-                    break;
-                }
-            }
-            ((Activity) view.getContext()).startActivityForResult(new Intent(GridActivity.this, ActivityTileSel.class), imgBtnId);
+            ((Activity) view.getContext()).startActivityForResult(intent, imgBtnId);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("GridActivity", "requestCode: " + requestCode);
+
         if (resultCode == Activity.RESULT_OK) {
-            ImageButton imgBtn;
-            int imgBtnId = 0;
-
-            switch(requestCode) {
-                case (0) : {
-                    imgBtnId = R.id.imageButton0;
-                    break;
-                }
-                case (1) : {
-                    imgBtnId = R.id.imageButton1;
-                    break;
-                }
-                case (2) : {
-                    imgBtnId = R.id.imageButton2;
-                    break;
-                }
-                case (3) : {
-                    imgBtnId = R.id.imageButton3;
-                    break;
-                }
-                case (4) : {
-                    imgBtnId = R.id.imageButton4;
-                    break;
-                }
-                case (5) : {
-                    imgBtnId = R.id.imageButton5;
-                    break;
-                }
-                case (6) : {
-                    imgBtnId = R.id.imageButton6;
-                    break;
-                }
-                case (7) : {
-                    imgBtnId = R.id.imageButton7;
-                    break;
-                }
-                case (8) : {
-                    imgBtnId = R.id.imageButton8;
-                    break;
-                }
-            }
-
-            imgBtn = findViewById(imgBtnId);
+            int imgBtnId = getIdFromBtnNumber(requestCode);
+            ImageButton imgBtn = findViewById(imgBtnId);
             Image img = (Image) data.getExtras().getSerializable("image");
-            new DownloadImageTask((ImageButton) findViewById(imgBtnId)).execute(img.getData());
-//            imgBtn.setTag(13, img.getSound());
+
+            new ImageDownloadTask((ImageButton) findViewById(imgBtnId)).execute(img.getData());
             imgBtn.setTag(imgBtnId, img.getSound());
         }
-//        switch(requestCode) {
-//            case (R.id.imageButton0) : {
-//                if (resultCode == Activity.RESULT_OK) {
-//                    Image img = (Image) data.getExtras().getSerializable("image");
-//                    Log.e("GridActivity", img.getName() + " " + img.getData());
-//                    ImageButton imgBtn = findViewById(R.id.imageButton0);
-//                    new DownloadImageTask(imgBtn).execute(img.getData());
-//                }
-//                break;
-//            }
-//        }
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    private class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        public ImageDownloadTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
 
         protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
+            String urlDisplay = urls[0];
             Bitmap mIcon11 = null;
+
             try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
+                InputStream in = new java.net.URL(urlDisplay).openStream();
                 mIcon11 = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
-                Log.e("Error", e.getMessage());
                 e.printStackTrace();
             }
+
             return mIcon11;
         }
 
