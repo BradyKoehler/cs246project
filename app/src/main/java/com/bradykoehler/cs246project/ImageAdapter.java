@@ -1,21 +1,13 @@
 package com.bradykoehler.cs246project;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.io.InputStream;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder> {
     private Image[] mDataset;
@@ -39,8 +31,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
         mContext = context;
     }
 
-//    private final View.OnClickListener mOnClickListener = new ImageOnClickListener();
-
     // Create new views (invoked by the layout manager)
     @Override
     public ImageAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -53,9 +43,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
             @Override
             public void onClick(View view) {
                 int itemPosition = ActivityTileSel.recyclerView.getChildLayoutPosition(view);
-                Log.e("ImageAdapter","Item Position: " + itemPosition);
                 Image img = mDataset[itemPosition];
-                Log.e("ImageAdapter", "Image name: " + img.getName());
                 ((ActivityTileSel) mContext).returnImage(img);
             }
         });
@@ -66,7 +54,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
         ((TextView) myViewHolder.relativeLayout.findViewById(R.id.tileName)).setText(mDataset[i].getName());
-        new DownloadImageTask((ImageView) myViewHolder.relativeLayout.findViewById(R.id.tileImage))
+        new ImageDownloadTask((ImageView) myViewHolder.relativeLayout.findViewById(R.id.tileImage))
                 .execute(mDataset[i].getData());
     }
 
@@ -75,30 +63,4 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     public int getItemCount() {
         return mDataset.length;
     }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-
 }

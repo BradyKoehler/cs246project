@@ -2,22 +2,15 @@ package com.bradykoehler.cs246project;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 public class GridActivity extends AppCompatActivity {
 
@@ -98,6 +91,7 @@ public class GridActivity extends AppCompatActivity {
                 R.id.imageButton7,
                 R.id.imageButton8
         };
+
         return  btnList[id];
     }
 
@@ -124,33 +118,6 @@ public class GridActivity extends AppCompatActivity {
 
             new ImageDownloadTask((ImageButton) findViewById(imgBtnId)).execute(img.getData());
             imgBtn.setTag(imgBtnId, img.getSound());
-        }
-    }
-
-    private class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public ImageDownloadTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urlDisplay = urls[0];
-            Bitmap mIcon11 = null;
-
-            try {
-                InputStream in = new java.net.URL(urlDisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-            bmImage.setTag("set");
         }
     }
 }
