@@ -2,7 +2,9 @@ package com.bradykoehler.cs246project;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Image {
+import java.io.Serializable;
+
+public class Image implements Serializable {
     @SerializedName("image_id")
     private int id;
     private String name;

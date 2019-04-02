@@ -1,10 +1,13 @@
 package com.bradykoehler.cs246project;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,9 +26,6 @@ public class NavMainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
-//    public Grid[] gridsList = new Grid[1];
-//    gridsList[0] = new Grid()
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
