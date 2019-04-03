@@ -25,7 +25,7 @@ public class Settings extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_settings);
 
         Switch toggle = (Switch) findViewById(R.id.switch1);
         toggle.setChecked(useDarkTheme);
@@ -34,7 +34,8 @@ public class Settings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton view, boolean isChecked) {
                 toggleTheme(isChecked);
             }
-        });    }
+        });
+    }
 
     private void toggleTheme(boolean darkTheme) {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();

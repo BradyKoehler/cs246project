@@ -1,11 +1,14 @@
 package com.bradykoehler.cs246project;
 
 import android.content.Intent;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -128,13 +131,14 @@ public class NavMainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             //return true;
-            Button yourButton = (Button) findViewById(R.id.action_settings);
-
-            yourButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
+//            Button btn = (Button)findViewById(R.id.action_settings);
+//
+//            btn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
                     startActivity(new Intent(NavMainActivity.this, Settings.class));
-                }
-            });
+//                }
+//            });
         }
 
         return super.onOptionsItemSelected(item);

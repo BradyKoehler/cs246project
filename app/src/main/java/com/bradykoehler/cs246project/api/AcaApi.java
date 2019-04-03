@@ -25,6 +25,8 @@ public class AcaApi {
         return ourInstance;
     }
 
+    public static Image img;
+
     public static String baseUrl = "https://glacial-anchorage-60833.herokuapp.com";
 
     private AcaApi() {
@@ -140,7 +142,8 @@ public class AcaApi {
                             @Override
                             public void run() {
                                 Log.d("AcaApi", "Attempting to load images");
-                                main.get().getImages(images);
+//                                main.get().getImages(images);
+                                main.get().loadImages(images);
                             }
                         });
                     }

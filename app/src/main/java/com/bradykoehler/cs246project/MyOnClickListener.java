@@ -9,4 +9,5 @@ public class MyOnClickListener implements View.OnClickListener {
     public void onClick(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), GridActivity.class));
     }
+
 }
