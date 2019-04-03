@@ -3,6 +3,7 @@ package com.bradykoehler.cs246project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class GridsAdapter extends RecyclerView.Adapter<GridsAdapter.MyViewHolder
                 Intent intent = new Intent(view.getContext(), GridActivity.class);
                 Bundle extras = new Bundle();
                 extras.putInt("gridId", grid.getId());
+                extras.putString("gridName", grid.getName());
                 intent.putExtras(extras);
                 view.getContext().startActivity(intent);
             }
@@ -60,6 +62,7 @@ public class GridsAdapter extends RecyclerView.Adapter<GridsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ((TextView) holder.relativeLayout.findViewById(R.id.firstLine)).setText(mDataset[position].getName());
+        ((TextView) holder.relativeLayout.findViewById(R.id.secondLine)).setText("Tiles: " + mDataset[position].getCount() + "/9");
     }
 
     // Return the size of your dataset (invoked by the layout manager)

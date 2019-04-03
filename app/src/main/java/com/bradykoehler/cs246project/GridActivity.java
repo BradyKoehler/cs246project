@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.bradykoehler.cs246project.api.AcaApi;
 
@@ -35,11 +36,24 @@ public class GridActivity extends AppCompatActivity {
             }
         });
 
-        Intent i = getIntent();
-        Bundle extras = i.getExtras();
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
         gridId = extras.getInt("gridId");
+        String gridName = extras.getString("gridName");
+        ((TextView) findViewById(R.id.textView)).setText(gridName);
 
         AcaApi.getInstance().getGrid(this, gridId);
+
+        for (int i = 0; i < 9; i++) {
+            Log.d("GridActivity:LongPress", "Setting long click listener for button " + i);
+            findViewById(getIdFromBtnNumber(i)).setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    editTile(v);
+                    return true;
+                }
+            });
+        }
     }
 
     private void playAudio(String url) {
@@ -111,11 +125,19 @@ public class GridActivity extends AppCompatActivity {
             String url = view.getTag(view.getId()).toString();
             playAudio(url);
         } else {
-            int imgBtnId = getBtnNumberFromId(view.getId());
-            Intent intent = new Intent(GridActivity.this, ActivityTileSel.class);
-
-            ((Activity) view.getContext()).startActivityForResult(intent, imgBtnId);
+//            int imgBtnId = getBtnNumberFromId(view.getId());
+//            Intent intent = new Intent(GridActivity.this, ActivityTileSel.class);
+//
+//            ((Activity) view.getContext()).startActivityForResult(intent, imgBtnId);
+            editTile(view);
         }
+    }
+
+    public void editTile(View view) {
+        int imgBtnId = getBtnNumberFromId(view.getId());
+        Intent intent = new Intent(GridActivity.this, ActivityTileSel.class);
+
+        ((Activity) view.getContext()).startActivityForResult(intent, imgBtnId);
     }
 
     @Override

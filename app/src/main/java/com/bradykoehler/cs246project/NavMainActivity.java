@@ -131,6 +131,15 @@ public class NavMainActivity extends AppCompatActivity
         recyclerView.setAdapter(mAdapter);
     }
 
+    public void addGrid(Grid grid) {
+        Intent intent = new Intent(this, GridActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt("gridId", grid.getId());
+        extras.putString("gridName", grid.getName());
+        intent.putExtras(extras);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

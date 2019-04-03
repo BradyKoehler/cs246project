@@ -11,6 +11,7 @@ public class Grid {
     private String name;
     private int width;
     private int height;
+    private int count;
 
     /**
      * Default constructor for a Grid
@@ -75,4 +76,6 @@ public class Grid {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public int getCount() { return count; }
 }

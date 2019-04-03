@@ -168,9 +168,10 @@ public class AcaApi {
                         main.get().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.d("AcaApi", "Attempting to load images");
+//                                Log.d("AcaApi", "Attempting to load images");
 //                                main.get().getImages(images);
 //                                main.get().loadImages(images);
+                                main.get().addGrid(grid);
                             }
                         });
                     }
