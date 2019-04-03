@@ -1,5 +1,7 @@
 package com.bradykoehler.cs246project;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,9 +36,23 @@ public class GridsAdapter extends RecyclerView.Adapter<GridsAdapter.MyViewHolder
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.grid_list_item_layout, parent, false);
 
-        v.setOnClickListener(mOnClickListener);
+//        v.setOnClickListener(mOnClickListener);
 
         MyViewHolder vh = new MyViewHolder(v);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int gridListPosition = NavMainActivity.recyclerView.getChildAdapterPosition(view);
+                Grid grid = mDataset[gridListPosition];
+                Intent intent = new Intent(view.getContext(), GridActivity.class);
+                Bundle extras = new Bundle();
+                extras.putInt("gridId", grid.getId());
+                intent.putExtras(extras);
+                view.getContext().startActivity(intent);
+            }
+        });
+
         return vh;
     }
 

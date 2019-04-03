@@ -7,12 +7,17 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.bradykoehler.cs246project.api.AcaApi;
 
 import java.io.IOException;
 
 public class GridActivity extends AppCompatActivity {
+
+    private int gridId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,12 @@ public class GridActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Intent i = getIntent();
+        Bundle extras = i.getExtras();
+        gridId = extras.getInt("gridId");
+
+        AcaApi.getInstance().getGrid(this, gridId);
     }
 
     private void playAudio(String url) {
@@ -116,8 +127,18 @@ public class GridActivity extends AppCompatActivity {
             ImageButton imgBtn = findViewById(imgBtnId);
             Image img = (Image) data.getExtras().getSerializable("image");
 
+            Log.d("GridActivity", "Selected Image ID: " + img.getId());
+
+            AcaApi.getInstance().createTile(this, img.getId(), requestCode, gridId);
+
             new ImageDownloadTask((ImageButton) findViewById(imgBtnId)).execute(img.getData());
             imgBtn.setTag(imgBtnId, img.getSound());
         }
+    }
+
+    public void setTile(Tile tile) {
+        ImageButton btn = (ImageButton) findViewById(getIdFromBtnNumber(tile.getPosition()));
+        new ImageDownloadTask(btn).execute(tile.getData());
+        btn.setTag(getIdFromBtnNumber(tile.getPosition()), tile.getSound());
     }
 }
