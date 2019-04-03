@@ -1,16 +1,13 @@
 package com.bradykoehler.cs246project;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,26 +32,25 @@ public class NavMainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final NavMainActivity navMainActivity = this;
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("New Grid Name");
 
-// Set up the input
+                // Set up the input
                 final EditText input = new EditText(view.getContext());
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
 
-// Set up the buttons
+                // Set up the buttons
                 builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -73,13 +69,13 @@ public class NavMainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         // Grids list view
@@ -95,35 +91,6 @@ public class NavMainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
 
         AcaApi.getInstance().getGrids(this);
-
-//        Grid[] myDataset = new Grid[19];
-
-//        myDataset[0] = new Grid("hello");
-//        myDataset[1] = new Grid("world");
-//        myDataset[2] = new Grid("my");
-//        myDataset[3] = new Grid("name");
-//        myDataset[4] = new Grid("is");
-//        myDataset[5] = new Grid("brady");
-//        myDataset[6] = new Grid("koehler");
-//        myDataset[7] = new Grid("world");
-//        myDataset[8] = new Grid("my");
-//        myDataset[9] = new Grid("name");
-//        myDataset[10] = new Grid("is");
-//        myDataset[11] = new Grid("brady");
-//        myDataset[12] = new Grid("koehler");
-//        myDataset[13] = new Grid("world");
-//        myDataset[14] = new Grid("my");
-//        myDataset[15] = new Grid("name");
-//        myDataset[16] = new Grid("is");
-//        myDataset[17] = new Grid("brady");
-//        myDataset[18] = new Grid("koehler");
-
-        // specify an adapter (see also next example)
-//        mAdapter = new GridsAdapter(myDataset);
-//        mAdapter = new GridsAdapter(gridsList);
-//        recyclerView.setAdapter(mAdapter);
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
     }
 
     public void loadGrids(Grid[] newGridsList) {
@@ -142,7 +109,7 @@ public class NavMainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -192,7 +159,7 @@ public class NavMainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
