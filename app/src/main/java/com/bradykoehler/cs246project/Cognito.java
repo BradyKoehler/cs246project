@@ -1,6 +1,7 @@
 package com.bradykoehler.cs246project;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -112,6 +113,18 @@ public class Cognito {
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
             Toast.makeText(appContext,"Sign in Success", Toast.LENGTH_LONG).show();
+
+            // Store tokens
+            String accessToken = userSession.getAccessToken().getJWTToken();
+            String idToken = userSession.getIdToken().getJWTToken();
+            SharedPreferences jwt = appContext.getSharedPreferences("jwt", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = jwt.edit();
+            Log.d("Cognito", "AccessToken: " + accessToken);
+            Log.d("Cognito", "IDToken: " + idToken);
+            editor.putString("accessToken", accessToken);
+            editor.putString("idToken", idToken);
+            editor.commit();
+
             Log.d(TAG, "Signed in");
             Intent intent = new Intent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

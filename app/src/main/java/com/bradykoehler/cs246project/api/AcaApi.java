@@ -1,6 +1,8 @@
 package com.bradykoehler.cs246project.api;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import com.bradykoehler.cs246project.ActivityTileSel;
 import com.bradykoehler.cs246project.Grid;
 import com.bradykoehler.cs246project.GridActivity;
 import com.bradykoehler.cs246project.Image;
+import com.bradykoehler.cs246project.LoginActivity;
 import com.bradykoehler.cs246project.NavMainActivity;
 import com.bradykoehler.cs246project.Tile;
 import com.google.gson.Gson;
@@ -39,10 +42,16 @@ public class AcaApi {
 
     public static Image img;
 
-    public static String baseUrl = "https://glacial-anchorage-60833.herokuapp.com";
+    public static String baseUrl = "https://ifd58d1qri.execute-api.us-east-1.amazonaws.com/latest";
 
     private AcaApi() {
 
+    }
+
+    private String getAccessToken(AppCompatActivity activity) {
+        SharedPreferences loginData = activity.getSharedPreferences("jwt", Context.MODE_PRIVATE);
+        String token = loginData.getString("accessToken", null);
+        return token;
     }
 
     public void getGrids(final NavMainActivity activity) {
@@ -57,7 +66,7 @@ public class AcaApi {
                     Log.d("AcaApi", "Trying to open URL");
 
                     // build request url
-                    InputStream response = new URL(baseUrl + "/grids").openStream();
+                    InputStream response = new URL(baseUrl + "/grids?token=" + getAccessToken(activity)).openStream();
 
                     // check for response
                     try (Scanner scanner = new Scanner(response)) {
@@ -151,7 +160,7 @@ public class AcaApi {
 //                    conn.disconnect();
 
 //                     build request url
-                    InputStream response = new URL(baseUrl + "/grids/create/" + name).openStream();
+                    InputStream response = new URL(baseUrl + "/grids/create/" + name + "?token=" + getAccessToken(activity)).openStream();
 
                     // check for response
                     try (Scanner scanner = new Scanner(response)) {
@@ -226,7 +235,7 @@ public class AcaApi {
                     Log.d("AcaApi", "Trying to open URL");
 
                     // build request url
-                    InputStream response = new URL(baseUrl + "/grid/" + id).openStream();
+                    InputStream response = new URL(baseUrl + "/grid/" + id + "?token=" + getAccessToken(activity)).openStream();
 
                     // check for response
                     try (Scanner scanner = new Scanner(response)) {
@@ -271,7 +280,7 @@ public class AcaApi {
                     Log.d("AcaApi", "Trying to open URL");
 
                     // build request url
-                    InputStream response = new URL(baseUrl + "/images").openStream();
+                    InputStream response = new URL(baseUrl + "/images?token=" + getAccessToken(activity)).openStream();
 
                     // check for response
                     try (Scanner scanner = new Scanner(response)) {
@@ -312,7 +321,7 @@ public class AcaApi {
                     Log.d("AcaApi", "Trying to open URL");
 
                     // build request url
-                    InputStream response = new URL(baseUrl + "/grid/" + gridId + "/tiles/new/" + id + "/" + pos).openStream();
+                    InputStream response = new URL(baseUrl + "/grid/" + gridId + "/tiles/new/" + id + "/" + pos + "?token=" + getAccessToken(activity)).openStream();
 
                     // check for response
                     try (Scanner scanner = new Scanner(response)) {
