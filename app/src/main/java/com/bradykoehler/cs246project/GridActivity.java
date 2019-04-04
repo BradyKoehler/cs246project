@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.bradykoehler.cs246project.api.AcaApi;
-
 import java.io.IOException;
 
 public class GridActivity extends AppCompatActivity {

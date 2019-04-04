@@ -1,16 +1,12 @@
 package com.bradykoehler.cs246project;
 
 import android.app.Activity;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-
-import com.bradykoehler.cs246project.api.AcaApi;
 
 public class ActivityTileSel extends AppCompatActivity {
     public static RecyclerView recyclerView;

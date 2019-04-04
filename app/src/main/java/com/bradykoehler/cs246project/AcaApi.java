@@ -1,35 +1,17 @@
-package com.bradykoehler.cs246project.api;
+package com.bradykoehler.cs246project;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.bradykoehler.cs246project.ActivityTileSel;
-import com.bradykoehler.cs246project.Grid;
-import com.bradykoehler.cs246project.GridActivity;
-import com.bradykoehler.cs246project.Image;
-import com.bradykoehler.cs246project.LoginActivity;
-import com.bradykoehler.cs246project.NavMainActivity;
-import com.bradykoehler.cs246project.Tile;
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
