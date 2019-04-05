@@ -1,15 +1,25 @@
 package com.bradykoehler.cs246project;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.SearchView;
 
 public class ImagesActivity extends AppCompatActivity {
     public static RecyclerView recyclerView;
+
+    public void setmAdapter(RecyclerView.Adapter mAdapter) {
+        this.mAdapter = mAdapter;
+    }
+
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Image[] images;
@@ -40,12 +50,15 @@ public class ImagesActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
     }
 
-    public void getImages(Image[] images){
-        this.images = images;
+    public void doSearch(View view){
+        EditText editText = (EditText) findViewById(R.id.search);
+        String query = editText.getText().toString();
+
+      //  loadImages(AcaApi.getInstance().getImages(this, query));
     }
 
-    private void doMySearch(String query){
-        mAdapter = new ImagesAdapter(images, this);
+    public void getImages(Image[] images){
+        this.images = images;
     }
 
     public void returnImage(Image img) {
