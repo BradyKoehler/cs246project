@@ -125,7 +125,7 @@ public class Cognito {
             Log.d(TAG, "Signed in");
             Intent intent = new Intent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setClass(appContext, NavMainActivity.class);
+            intent.setClass(appContext, MainActivity.class);
             appContext.startActivity(intent);
         }
 

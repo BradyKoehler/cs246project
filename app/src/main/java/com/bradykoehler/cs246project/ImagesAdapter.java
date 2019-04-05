@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder> {
+public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.MyViewHolder> {
     private Image[] mDataSet;
     private Context mContext;
 
@@ -26,14 +26,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ImageAdapter(Image[] myDataSet, Context context) {
+    public ImagesAdapter(Image[] myDataSet, Context context) {
         mDataSet = myDataSet;
         mContext = context;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ImageAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ImagesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.tile_list_item_layout, parent, false);
 

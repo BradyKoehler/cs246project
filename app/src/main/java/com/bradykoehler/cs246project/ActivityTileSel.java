@@ -36,7 +36,7 @@ public class ActivityTileSel extends AppCompatActivity {
     }
 
     public void loadImages(Image[] newImagesList) {
-        mAdapter = new ImageAdapter(newImagesList, this);
+        mAdapter = new ImagesAdapter(newImagesList, this);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -45,7 +45,7 @@ public class ActivityTileSel extends AppCompatActivity {
     }
 
     private void doMySearch(String query){
-        mAdapter = new ImageAdapter(images, this);
+        mAdapter = new ImagesAdapter(images, this);
     }
 
     public void returnImage(Image img) {

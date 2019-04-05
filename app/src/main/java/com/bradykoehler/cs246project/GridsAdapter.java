@@ -41,7 +41,7 @@ public class GridsAdapter extends RecyclerView.Adapter<GridsAdapter.MyViewHolder
             public void onClick(View view) {
 
             // Get selected grid
-            int gridListPosition = NavMainActivity.recyclerView.getChildAdapterPosition(view);
+            int gridListPosition = MainActivity.recyclerView.getChildAdapterPosition(view);
             Grid grid = mDataSet[gridListPosition];
 
             // Store grid data in an intent

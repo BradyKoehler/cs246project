@@ -29,8 +29,8 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name=".NavMainActivity"
-            android:label="@string/title_activity_nav_main"
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"

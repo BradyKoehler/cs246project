@@ -33,8 +33,8 @@ class AcaApi {
         return loginData.getString("accessToken", null);
     }
 
-    void getGrids(final NavMainActivity activity) {
-        final WeakReference<NavMainActivity> main = new WeakReference<>(activity);
+    void getGrids(final MainActivity activity) {
+        final WeakReference<MainActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running getGrids()");
         new Thread(new Runnable() {
@@ -73,8 +73,8 @@ class AcaApi {
         }).start();
     }
 
-    void createGrid(final NavMainActivity activity, final String name) {
-        final WeakReference<NavMainActivity> main = new WeakReference<>(activity);
+    void createGrid(final MainActivity activity, final String name) {
+        final WeakReference<MainActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running createGrid()");
         new Thread(new Runnable() {
