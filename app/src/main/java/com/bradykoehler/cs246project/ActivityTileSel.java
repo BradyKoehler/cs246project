@@ -59,7 +59,6 @@ public class ActivityTileSel extends AppCompatActivity {
     }
 
     public void returnImage(Image img) {
-        AcaApi.getInstance().img = img;
         Intent resultIntent = new Intent();
         // TODO Add extras or a data URI to this intent as appropriate.
         resultIntent.putExtra("image", img);
