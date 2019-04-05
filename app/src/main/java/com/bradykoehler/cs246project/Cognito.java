@@ -109,7 +109,7 @@ public class Cognito {
 
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
-            Toast.makeText(appContext,"Sign in Success", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext,"Signed in", Toast.LENGTH_LONG).show();
 
             // Store tokens
             String accessToken = userSession.getAccessToken().getJWTToken();

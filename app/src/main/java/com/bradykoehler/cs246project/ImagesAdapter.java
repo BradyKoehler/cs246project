@@ -35,7 +35,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.MyViewHold
     @Override
     public ImagesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tile_list_item_layout, parent, false);
+                .inflate(R.layout.image_list_item_layout, parent, false);
 
         MyViewHolder vh = new MyViewHolder(v);
 
