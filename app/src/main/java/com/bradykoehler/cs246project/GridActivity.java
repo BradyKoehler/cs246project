@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -38,7 +37,7 @@ public class GridActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         gridId = extras.getInt("gridId");
         String gridName = extras.getString("gridName");
-        ((TextView) findViewById(R.id.textView)).setText(gridName);
+        setTitle(gridName);
 
         AcaApi.getInstance().getGrid(this, gridId);
 

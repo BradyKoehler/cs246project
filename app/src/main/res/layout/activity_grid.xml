@@ -26,29 +26,14 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="TextView"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
     <TableLayout
         android:layout_width="395dp"
         android:layout_height="573dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <TableRow
             android:layout_width="match_parent"
@@ -58,27 +43,27 @@
                 android:id="@+id/imageButton0"
                 android:layout_width="124dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/imageButton1"
                 android:layout_width="124dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="124dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
         </TableRow>
 
@@ -90,27 +75,27 @@
                 android:id="@+id/imageButton3"
                 android:layout_width="124dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/imageButton4"
                 android:layout_width="124dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/imageButton5"
                 android:layout_width="124dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
         </TableRow>
 
@@ -122,27 +107,27 @@
                 android:id="@+id/imageButton6"
                 android:layout_width="130dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/imageButton7"
                 android:layout_width="129dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/imageButton8"
                 android:layout_width="136dp"
                 android:layout_height="84dp"
+                android:adjustViewBounds="true"
                 android:onClick="selectTile"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_input_add" />
         </TableRow>
 
