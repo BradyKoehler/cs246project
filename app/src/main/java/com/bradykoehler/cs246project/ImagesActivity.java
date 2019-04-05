@@ -9,11 +9,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.SearchView;
 
-import com.bradykoehler.cs246project.api.AcaApi;
-
-public class ActivityTileSel extends AppCompatActivity {
+public class ImagesActivity extends AppCompatActivity {
     public static RecyclerView recyclerView;
+
+    public void setmAdapter(RecyclerView.Adapter mAdapter) {
+        this.mAdapter = mAdapter;
+    }
+
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Image[] images;
@@ -21,7 +27,7 @@ public class ActivityTileSel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tile_sel);
+        setContentView(R.layout.activity_images);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,33 +43,25 @@ public class ActivityTileSel extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         AcaApi.getInstance().getImages(this);
-
-//        AcaApi api = AcaApi.getInstance();
-//        api.getImages(this);
-//        mAdapter = new ImageAdapter(images);
-//        recyclerView.setAdapter(mAdapter);
-//        Intent intent = getIntent();
-//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//            doMySearch(query);
-//        }
     }
 
     public void loadImages(Image[] newImagesList) {
-        mAdapter = new ImageAdapter(newImagesList, this);
+        mAdapter = new ImagesAdapter(newImagesList, this);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    public void doSearch(View view){
+        EditText editText = (EditText) findViewById(R.id.search);
+        String query = editText.getText().toString();
+
+      //  loadImages(AcaApi.getInstance().getImages(this, query));
     }
 
     public void getImages(Image[] images){
         this.images = images;
     }
 
-    private void doMySearch(String query){
-        mAdapter = new ImageAdapter(images, this);
-    }
-
     public void returnImage(Image img) {
-        AcaApi.getInstance().img = img;
         Intent resultIntent = new Intent();
         // TODO Add extras or a data URI to this intent as appropriate.
         resultIntent.putExtra("image", img);

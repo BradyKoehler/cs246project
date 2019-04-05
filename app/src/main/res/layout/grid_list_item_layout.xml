@@ -3,9 +3,9 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip"
-    android:background="@drawable/list_border_shape">
+    android:layout_height="100dp"
+    android:background="@drawable/list_border_shape"
+    android:padding="6dip">
 
     <TextView
         android:id="@+id/secondLine"
@@ -13,23 +13,23 @@
         android:layout_height="26dip"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/icon"
         android:singleLine="true"
-        android:text="Tiles: 7/9"
-        android:textSize="12sp" />
+        android:text="Tiles: 0/9"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/firstLine"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/secondLine"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_width="405dp"
+        android:layout_height="63dp"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/icon"
+        android:layout_above="@+id/secondLine"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="-1dp"
         android:gravity="center_vertical"
-        android:text="Example application"
-        android:textSize="16sp" />
+        android:text="Grid Name"
+        android:textSize="36sp" />
 
 </RelativeLayout>
 

@@ -7,12 +7,15 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
 import java.io.IOException;
 
 public class GridActivity extends AppCompatActivity {
+
+    private int gridId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,25 @@ public class GridActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        gridId = extras.getInt("gridId");
+        String gridName = extras.getString("gridName");
+        setTitle(gridName);
+
+        AcaApi.getInstance().getGrid(this, gridId);
+
+        for (int i = 0; i < 9; i++) {
+            Log.d("GridActivity:LongPress", "Setting long click listener for button " + i);
+            findViewById(getIdFromBtnNumber(i)).setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    editTile(v);
+                    return true;
+                }
+            });
+        }
     }
 
     private void playAudio(String url) {
@@ -100,11 +122,15 @@ public class GridActivity extends AppCompatActivity {
             String url = view.getTag(view.getId()).toString();
             playAudio(url);
         } else {
-            int imgBtnId = getBtnNumberFromId(view.getId());
-            Intent intent = new Intent(GridActivity.this, ActivityTileSel.class);
-
-            ((Activity) view.getContext()).startActivityForResult(intent, imgBtnId);
+            editTile(view);
         }
+    }
+
+    public void editTile(View view) {
+        int imgBtnId = getBtnNumberFromId(view.getId());
+        Intent intent = new Intent(GridActivity.this, ImagesActivity.class);
+
+        ((Activity) view.getContext()).startActivityForResult(intent, imgBtnId);
     }
 
     @Override
@@ -116,8 +142,18 @@ public class GridActivity extends AppCompatActivity {
             ImageButton imgBtn = findViewById(imgBtnId);
             Image img = (Image) data.getExtras().getSerializable("image");
 
+            Log.d("GridActivity", "Selected Image ID: " + img.getId());
+
+            AcaApi.getInstance().createTile(this, img.getId(), requestCode, gridId);
+
             new ImageDownloadTask((ImageButton) findViewById(imgBtnId)).execute(img.getData());
             imgBtn.setTag(imgBtnId, img.getSound());
         }
+    }
+
+    public void setTile(Tile tile) {
+        ImageButton btn = findViewById(getIdFromBtnNumber(tile.getPosition()));
+        new ImageDownloadTask(btn).execute(tile.getData());
+        btn.setTag(getIdFromBtnNumber(tile.getPosition()), tile.getSound());
     }
 }

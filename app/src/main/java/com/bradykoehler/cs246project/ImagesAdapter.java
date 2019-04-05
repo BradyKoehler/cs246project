@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder> {
-    private Image[] mDataset;
+public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.MyViewHolder> {
+    private Image[] mDataSet;
     private Context mContext;
 
     // Provide a reference to the views for each data item
@@ -26,25 +26,25 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ImageAdapter(Image[] myDataset, Context context) {
-        mDataset = myDataset;
+    public ImagesAdapter(Image[] myDataSet, Context context) {
+        mDataSet = myDataSet;
         mContext = context;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ImageAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ImagesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tile_list_item_layout, parent, false);
+                .inflate(R.layout.image_list_item_layout, parent, false);
 
         MyViewHolder vh = new MyViewHolder(v);
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int itemPosition = ActivityTileSel.recyclerView.getChildLayoutPosition(view);
-                Image img = mDataset[itemPosition];
-                ((ActivityTileSel) mContext).returnImage(img);
+                int itemPosition = ImagesActivity.recyclerView.getChildLayoutPosition(view);
+                Image img = mDataSet[itemPosition];
+                ((ImagesActivity) mContext).returnImage(img);
             }
         });
 
@@ -53,14 +53,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        ((TextView) myViewHolder.relativeLayout.findViewById(R.id.tileName)).setText(mDataset[i].getName());
+        ((TextView) myViewHolder.relativeLayout.findViewById(R.id.tileName)).setText(mDataSet[i].getName());
         new ImageDownloadTask((ImageView) myViewHolder.relativeLayout.findViewById(R.id.tileImage))
-                .execute(mDataset[i].getData());
+                .execute(mDataSet[i].getData());
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    // Return the size of your data set (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataSet.length;
     }
 }
