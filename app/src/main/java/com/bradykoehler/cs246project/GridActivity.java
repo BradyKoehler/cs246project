@@ -129,7 +129,7 @@ public class GridActivity extends AppCompatActivity {
 
     public void editTile(View view) {
         int imgBtnId = getBtnNumberFromId(view.getId());
-        Intent intent = new Intent(GridActivity.this, ActivityTileSel.class);
+        Intent intent = new Intent(GridActivity.this, ImagesActivity.class);
 
         ((Activity) view.getContext()).startActivityForResult(intent, imgBtnId);
     }

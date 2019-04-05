@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity
+public class GridsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static RecyclerView recyclerView;
@@ -29,11 +30,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_grids);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final MainActivity mainActivity = this;
+        final GridsActivity gridsActivity = this;
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String m_Text = input.getText().toString();
-                        AcaApi.getInstance().createGrid(mainActivity, m_Text);
+                        AcaApi.getInstance().createGrid(gridsActivity, m_Text);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -154,7 +155,35 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("New Image Request");
 
+            // Set up the input
+            final EditText input = new EditText(this);
+
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setHint("Please enter your request here");
+            builder.setView(input);
+
+            final GridsActivity activity = this;
+            // Set up the buttons
+            builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String m_Text = input.getText().toString();
+                    Log.d("GridsActivity", m_Text);
+                    AcaApi.getInstance().createRequest(activity, m_Text);
+                }
+            });
+
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

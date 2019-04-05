@@ -6,14 +6,18 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.Scanner;
+
+import javax.net.ssl.HttpsURLConnection;
 
 class AcaApi {
     private static final AcaApi ourInstance = new AcaApi();
@@ -33,8 +37,54 @@ class AcaApi {
         return loginData.getString("accessToken", null);
     }
 
-    void getGrids(final MainActivity activity) {
-        final WeakReference<MainActivity> main = new WeakReference<>(activity);
+    void createRequest(final GridsActivity activity, final String message) {
+        final WeakReference<GridsActivity> main = new WeakReference<>(activity);
+
+        Log.d("AcaApi", "Running createRequest()");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL obj = new URL(baseUrl + "/request?token=" + getAccessToken(activity));
+                    HttpsURLConnection conn = (HttpsURLConnection) obj.openConnection();
+
+                    // Set request headers
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("User-Agent", "Java Client");
+                    conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+                    String urlParameters = "message=" + message;
+
+                    // Send request
+                    conn.setDoOutput(true);
+                    DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+                    wr.writeBytes(urlParameters);
+                    wr.flush();
+                    wr.close();
+
+                    final int responseCode = conn.getResponseCode();
+
+                    conn.disconnect();
+
+                    main.get().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (responseCode == 200) {
+                                Toast.makeText(main.get(),"Request submitted", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(main.get(),"Error: Request not submitted", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    void getGrids(final GridsActivity activity) {
+        final WeakReference<GridsActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running getGrids()");
         new Thread(new Runnable() {
@@ -73,8 +123,8 @@ class AcaApi {
         }).start();
     }
 
-    void createGrid(final MainActivity activity, final String name) {
-        final WeakReference<MainActivity> main = new WeakReference<>(activity);
+    void createGrid(final GridsActivity activity, final String name) {
+        final WeakReference<GridsActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running createGrid()");
         new Thread(new Runnable() {
@@ -152,8 +202,8 @@ class AcaApi {
         }).start();
     }
 
-    void getImages(final ActivityTileSel activity) {
-        final WeakReference<ActivityTileSel> main = new WeakReference<>(activity);
+    void getImages(final ImagesActivity activity) {
+        final WeakReference<ImagesActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running getImages()");
         new Thread(new Runnable() {

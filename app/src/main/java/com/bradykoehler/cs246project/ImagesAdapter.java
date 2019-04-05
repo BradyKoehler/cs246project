@@ -42,9 +42,9 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.MyViewHold
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int itemPosition = ActivityTileSel.recyclerView.getChildLayoutPosition(view);
+                int itemPosition = ImagesActivity.recyclerView.getChildLayoutPosition(view);
                 Image img = mDataSet[itemPosition];
-                ((ActivityTileSel) mContext).returnImage(img);
+                ((ImagesActivity) mContext).returnImage(img);
             }
         });
 
