@@ -123,10 +123,6 @@ public class GridActivity extends AppCompatActivity {
             String url = view.getTag(view.getId()).toString();
             playAudio(url);
         } else {
-//            int imgBtnId = getBtnNumberFromId(view.getId());
-//            Intent intent = new Intent(GridActivity.this, ActivityTileSel.class);
-//
-//            ((Activity) view.getContext()).startActivityForResult(intent, imgBtnId);
             editTile(view);
         }
     }
@@ -157,7 +153,7 @@ public class GridActivity extends AppCompatActivity {
     }
 
     public void setTile(Tile tile) {
-        ImageButton btn = (ImageButton) findViewById(getIdFromBtnNumber(tile.getPosition()));
+        ImageButton btn = findViewById(getIdFromBtnNumber(tile.getPosition()));
         new ImageDownloadTask(btn).execute(tile.getData());
         btn.setTag(getIdFromBtnNumber(tile.getPosition()), tile.getSound());
     }

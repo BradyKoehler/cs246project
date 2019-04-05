@@ -33,16 +33,6 @@ public class ActivityTileSel extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         AcaApi.getInstance().getImages(this);
-
-//        AcaApi api = AcaApi.getInstance();
-//        api.getImages(this);
-//        mAdapter = new ImageAdapter(images);
-//        recyclerView.setAdapter(mAdapter);
-//        Intent intent = getIntent();
-//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//            doMySearch(query);
-//        }
     }
 
     public void loadImages(Image[] newImagesList) {

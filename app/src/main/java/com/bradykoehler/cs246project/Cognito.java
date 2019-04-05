@@ -18,7 +18,6 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Mult
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.util.CognitoServiceConstants;
 import com.amazonaws.regions.Regions;
 
 import static android.content.ContentValues.TAG;
@@ -28,13 +27,13 @@ public class Cognito {
     private String poolID = "us-east-1_jj2mY0NQq";
     private String clientID = "5kpm479btm057jd9738h61gu1e";
     private String clientSecret = "dgrb6l8jvuqvoiqd1munbpg5gk8abko07jabfd2neprfr11bous";
-    private Regions awsRegion = Regions.US_EAST_1;         // Place your Region
+    private Regions awsRegion = Regions.US_EAST_1;
     // ############################################################# End of Information about Cognito Pool
     private CognitoUserPool userPool;
-    private CognitoUserAttributes userAttributes;       // Used for adding attributes to the user
+    private CognitoUserAttributes userAttributes;
     private Context appContext;
 
-    private String userPassword;                        // Used for Login
+    private String userPassword;
 
     public Cognito(Context context){
         appContext = context;
@@ -44,7 +43,6 @@ public class Cognito {
 
     public void signUpInBackground(String userId, String password){
         userPool.signUpInBackground(userId, password, this.userAttributes, null, signUpCallback);
-        //userPool.signUp(userId, password, this.userAttributes, null, signUpCallback);
     }
 
     SignUpHandler signUpCallback = new SignUpHandler() {
@@ -74,7 +72,6 @@ public class Cognito {
     public void confirmUser(String userId, String code){
         CognitoUser cognitoUser =  userPool.getUser(userId);
         cognitoUser.confirmSignUpInBackground(code,false, confirmationCallback);
-        //cognitoUser.confirmSignUp(code,false, confirmationCallback);
     }
     // Callback handler for confirmSignUp API
     GenericHandler confirmationCallback = new GenericHandler() {
@@ -106,8 +103,8 @@ public class Cognito {
     AuthenticationHandler authenticationHandler = new AuthenticationHandler() {
         @Override
         public void authenticationChallenge(ChallengeContinuation continuation) {
-//            continuation.setChallengeResponse(CognitoServiceConstants.CHLG_RESP_NEW_PASSWORD, "<new password>");
-//            continuation.continueTask();
+            // continuation.setChallengeResponse(CognitoServiceConstants.CHLG_RESP_NEW_PASSWORD, "<new password>");
+            // continuation.continueTask();
         }
 
         @Override

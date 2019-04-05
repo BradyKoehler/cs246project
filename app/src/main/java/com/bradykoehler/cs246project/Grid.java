@@ -77,5 +77,9 @@ public class Grid {
         this.height = height;
     }
 
+    /**
+     * Returns the number of tiles contained by the grid
+     * @return
+     */
     public int getCount() { return count; }
 }

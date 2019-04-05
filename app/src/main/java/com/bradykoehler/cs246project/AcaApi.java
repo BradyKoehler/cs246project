@@ -92,7 +92,6 @@ class AcaApi {
 
                     Log.d("AcaApi", responseBody);
 
-                    // final Image[] images = new Gson().fromJson(responseBody, Image[].class);
                     final Grid grid = new Gson().fromJson(responseBody, Grid.class);
 
                     Log.d("AcaApi", "Created Grid: " + responseBody);

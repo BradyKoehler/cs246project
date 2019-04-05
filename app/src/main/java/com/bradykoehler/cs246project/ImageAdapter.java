@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder> {
-    private Image[] mDataset;
+    private Image[] mDataSet;
     private Context mContext;
 
     // Provide a reference to the views for each data item
@@ -26,8 +26,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ImageAdapter(Image[] myDataset, Context context) {
-        mDataset = myDataset;
+    public ImageAdapter(Image[] myDataSet, Context context) {
+        mDataSet = myDataSet;
         mContext = context;
     }
 
@@ -43,7 +43,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
             @Override
             public void onClick(View view) {
                 int itemPosition = ActivityTileSel.recyclerView.getChildLayoutPosition(view);
-                Image img = mDataset[itemPosition];
+                Image img = mDataSet[itemPosition];
                 ((ActivityTileSel) mContext).returnImage(img);
             }
         });
@@ -53,14 +53,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        ((TextView) myViewHolder.relativeLayout.findViewById(R.id.tileName)).setText(mDataset[i].getName());
+        ((TextView) myViewHolder.relativeLayout.findViewById(R.id.tileName)).setText(mDataSet[i].getName());
         new ImageDownloadTask((ImageView) myViewHolder.relativeLayout.findViewById(R.id.tileImage))
-                .execute(mDataset[i].getData());
+                .execute(mDataSet[i].getData());
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    // Return the size of your data set (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataSet.length;
     }
 }
