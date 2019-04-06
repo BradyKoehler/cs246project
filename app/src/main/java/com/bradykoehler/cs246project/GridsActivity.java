@@ -58,7 +58,7 @@ public class GridsActivity extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String m_Text = input.getText().toString();
-                        AcaApi.getInstance().createGrid(gridsActivity, m_Text);
+                        AcaApi.createGrid(gridsActivity, m_Text);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -93,14 +93,14 @@ public class GridsActivity extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        AcaApi.getInstance().getGrids(this);
+        AcaApi.getGrids(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        AcaApi.getInstance().getGrids(this);
+        AcaApi.getGrids(this);
     }
 
     public void loadGrids(Grid[] newGridsList) {
@@ -174,7 +174,7 @@ public class GridsActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int which) {
                     String m_Text = input.getText().toString();
                     Log.d("GridsActivity", m_Text);
-                    AcaApi.getInstance().createRequest(activity, m_Text);
+                    AcaApi.createRequest(activity, m_Text);
                 }
             });
 

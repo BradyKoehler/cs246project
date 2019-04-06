@@ -19,25 +19,31 @@ import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * The AcaApi class provides functions for sending and
+ * retrieving data from the API server.
+ */
 class AcaApi {
-    private static final AcaApi ourInstance = new AcaApi();
 
-    static AcaApi getInstance() {
-        return ourInstance;
-    }
-
+    // Main url for API requests
     private static String baseUrl = "https://ifd58d1qri.execute-api.us-east-1.amazonaws.com/latest";
 
-    private AcaApi() {
-
-    }
-
-    private String getAccessToken(AppCompatActivity activity) {
+    /**
+     * Returns the API access token
+     * @param activity
+     * @return
+     */
+    private static String getAccessToken(AppCompatActivity activity) {
         SharedPreferences loginData = activity.getSharedPreferences("jwt", Context.MODE_PRIVATE);
         return loginData.getString("accessToken", null);
     }
 
-    void createRequest(final GridsActivity activity, final String message) {
+    /**
+     * Submits a request for a new image
+     * @param activity
+     * @param message
+     */
+    static void createRequest(final GridsActivity activity, final String message) {
         final WeakReference<GridsActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running createRequest()");
@@ -83,7 +89,11 @@ class AcaApi {
         }).start();
     }
 
-    void getGrids(final GridsActivity activity) {
+    /**
+     * Retrieves a list of grids
+     * @param activity
+     */
+    static void getGrids(final GridsActivity activity) {
         final WeakReference<GridsActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running getGrids()");
@@ -123,7 +133,12 @@ class AcaApi {
         }).start();
     }
 
-    void createGrid(final GridsActivity activity, final String name) {
+    /**
+     * Creates a new grid
+     * @param activity
+     * @param name
+     */
+    static void createGrid(final GridsActivity activity, final String name) {
         final WeakReference<GridsActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running createGrid()");
@@ -160,7 +175,12 @@ class AcaApi {
         }).start();
     }
 
-    void getGrid(final GridActivity activity, final int id) {
+    /**
+     * Gets the list of Tiles belonging to a Grid
+     * @param activity
+     * @param id
+     */
+    static void getGrid(final GridActivity activity, final int id) {
         final WeakReference<GridActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running getGrid()");
@@ -202,11 +222,20 @@ class AcaApi {
         }).start();
     }
 
-    void getImages(final ImagesActivity activity) {
+    /**
+     * Gets a list of all images
+     * @param activity
+     */
+    static void getImages(final ImagesActivity activity) {
         getImages(activity, "");
     }
 
-    void getImages(final ImagesActivity activity, final String search) {
+    /**
+     * Gets a list of images matching the search query
+     * @param activity
+     * @param search
+     */
+    static void getImages(final ImagesActivity activity, final String search) {
         final WeakReference<ImagesActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running getImages()");
@@ -246,7 +275,14 @@ class AcaApi {
         }).start();
     }
 
-    void createTile(final GridActivity activity, final int id, final int pos, final int gridId) {
+    /**
+     * Creates a new Tile for a Grid
+     * @param activity
+     * @param id
+     * @param pos
+     * @param gridId
+     */
+    static void createTile(final GridActivity activity, final int id, final int pos, final int gridId) {
         final WeakReference<GridActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running createTile()");

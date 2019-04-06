@@ -42,7 +42,7 @@ public class GridActivity extends AppCompatActivity {
         String gridName = extras.getString("gridName");
         setTitle(gridName);
 
-        AcaApi.getInstance().getGrid(this, gridId);
+        AcaApi.getGrid(this, gridId);
 
         for (int i = 0; i < 9; i++) {
             Log.d("GridActivity:LongPress", "Setting long click listener for button " + i);
@@ -147,7 +147,7 @@ public class GridActivity extends AppCompatActivity {
 
             Log.d("GridActivity", "Selected Image ID: " + img.getId());
 
-            AcaApi.getInstance().createTile(this, img.getId(), requestCode, gridId);
+            AcaApi.createTile(this, img.getId(), requestCode, gridId);
 
             new ImageDownloadTask((ImageButton) findViewById(imgBtnId)).execute(img.getData());
             imgBtn.setTag(imgBtnId, img.getSound());

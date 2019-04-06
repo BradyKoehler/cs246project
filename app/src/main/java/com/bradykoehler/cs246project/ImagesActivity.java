@@ -54,7 +54,7 @@ public class ImagesActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        AcaApi.getInstance().getImages(this);
+        AcaApi.getImages(this);
     }
 
     public void loadImages(Image[] newImagesList) {
@@ -66,7 +66,7 @@ public class ImagesActivity extends AppCompatActivity {
         EditText editText = findViewById(R.id.search);
         String query = editText.getText().toString();
 
-        AcaApi.getInstance().getImages(this, query);
+        AcaApi.getImages(this, query);
     }
 
     public void getImages(Image[] images){
