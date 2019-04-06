@@ -11,16 +11,6 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay" >
 
-    </android.support.design.widget.AppBarLayout>
-
-    <!--<SearchView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <EditText
             android:id="@+id/search"
             android:layout_width="281dp"
@@ -32,14 +22,24 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
+            android:hint="Search"
             android:inputType="textPersonName"
-            android:text="Search"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@+id/tiles"
             app:layout_constraintEnd_toStartOf="@+id/searchbutton"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+    </android.support.design.widget.AppBarLayout>
+
+    <!--<SearchView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/searchbutton"
@@ -56,9 +56,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tiles"
             android:layout_width="match_parent"
-            android:layout_height="757dp"
-            android:layout_marginTop="76dp"
-            android:paddingTop="50dip"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:paddingTop="60dip"
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

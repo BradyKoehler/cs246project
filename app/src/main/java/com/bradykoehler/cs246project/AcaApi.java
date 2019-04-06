@@ -203,6 +203,10 @@ class AcaApi {
     }
 
     void getImages(final ImagesActivity activity) {
+        getImages(activity, "");
+    }
+
+    void getImages(final ImagesActivity activity, final String search) {
         final WeakReference<ImagesActivity> main = new WeakReference<>(activity);
 
         Log.d("AcaApi", "Running getImages()");
@@ -214,7 +218,7 @@ class AcaApi {
                 Log.d("AcaApi", "Trying to open URL");
 
                 // build request url
-                InputStream response = new URL(baseUrl + "/images?token=" + getAccessToken(activity)).openStream();
+                InputStream response = new URL(baseUrl + "/images?search=" + search + "&token=" + getAccessToken(activity)).openStream();
 
                 // check for response
                 try (Scanner scanner = new Scanner(response)) {

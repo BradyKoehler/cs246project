@@ -51,10 +51,10 @@ public class ImagesActivity extends AppCompatActivity {
     }
 
     public void doSearch(View view){
-        EditText editText = (EditText) findViewById(R.id.search);
+        EditText editText = findViewById(R.id.search);
         String query = editText.getText().toString();
 
-      //  loadImages(AcaApi.getInstance().getImages(this, query));
+        AcaApi.getInstance().getImages(this, query);
     }
 
     public void getImages(Image[] images){
