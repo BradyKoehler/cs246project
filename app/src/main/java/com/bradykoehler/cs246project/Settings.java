@@ -16,18 +16,16 @@ public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Use the chosen theme
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
-
-        if(useDarkTheme) {
-            setTheme(R.style.AppTheme_Dark_NoActionBar);
-        }
+        ThemeManager.setTheme(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Switch toggle = (Switch) findViewById(R.id.switch1);
+        // Initialize toggle
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
+        Switch toggle = findViewById(R.id.switch1);
         toggle.setChecked(useDarkTheme);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -42,9 +40,12 @@ public class Settings extends AppCompatActivity {
         editor.putBoolean(PREF_DARK_THEME, darkTheme);
         editor.apply();
 
-        Intent intent = getIntent();
         finish();
 
-        startActivity(intent);
+        // Reload app to set changes to theme
+        Intent i = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 }
