@@ -42,6 +42,7 @@ public class GridsActivity extends AppCompatActivity
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grids);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
