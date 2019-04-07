@@ -1,9 +1,11 @@
 package com.bradykoehler.cs246project;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,29 +22,88 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-public class GridsActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * This activity displays a list of all the current user's grids
+ */
+public class GridsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    @SuppressLint("StaticFieldLeak")
     public static RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
+    /**
+     * Initialize settings for the activity
+     * @param savedInstanceState default
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        // Set the correct theme
         ThemeManager.setTheme(this);
 
+        // Call override function
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grids);
 
+        // Initialize toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Set up floating action button
+        initializeFab();
+
+        // Set up action bar drawer
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+        // Set up action bar toggle
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        // Set up navigation listener
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Grids list view
+        recyclerView = findViewById(R.id.grids);
+        recyclerView.setHasFixedSize(true);
+
+        // Set up linear layout manager
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Load list of grids
+        AcaApi.getGrids(this);
+    }
+
+    /**
+     * Refresh activity data when resumed
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Load list of grids
+        AcaApi.getGrids(this);
+    }
+
+    /**
+     * Set up floating action button
+     */
+    private void initializeFab() {
+
+        // Store reference to activity
         final GridsActivity gridsActivity = this;
+
+        // Find button by id
         FloatingActionButton fab = findViewById(R.id.fab);
+
+        // Add onClick listener for adding a new grid
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+
+                // Create dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("New Grid Name");
 
@@ -53,122 +114,148 @@ public class GridsActivity extends AppCompatActivity
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
 
-                // Set up the buttons
+                // Set up create button
                 builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String m_Text = input.getText().toString();
-                        AcaApi.createGrid(gridsActivity, m_Text);
+                        // Get grid name
+                        String name = input.getText().toString();
+
+                        // Submit new grid data
+                        AcaApi.createGrid(gridsActivity, name);
                     }
                 });
+
+                // Set up cancel button
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        // Close dialog
                         dialog.cancel();
                     }
                 });
 
+                // Display dialog
                 builder.show();
             }
         });
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Grids list view
-
-        recyclerView = findViewById(R.id.grids);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        AcaApi.getGrids(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        AcaApi.getGrids(this);
-    }
-
+    /**
+     * Load list of grids into the adapter
+     * @param newGridsList
+     */
     public void loadGrids(Grid[] newGridsList) {
-        mAdapter = new GridsAdapter(newGridsList);
+        RecyclerView.Adapter mAdapter = new GridsAdapter(newGridsList);
         recyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Handle a new grid being created
+     * @param grid new grid data
+     */
     public void addGrid(Grid grid) {
+        // Create intent
         Intent intent = new Intent(this, GridActivity.class);
+
+        // Store grid data
         Bundle extras = new Bundle();
         extras.putInt("gridId", grid.getId());
         extras.putString("gridName", grid.getName());
+
+        // Add data to intent
         intent.putExtras(extras);
+
+        // Move to grid view
         startActivity(intent);
     }
 
+    /**
+     * Handle back button being pressed based on drawer status
+     */
     @Override
     public void onBackPressed() {
+
+        // Find drawer layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+        // Close drawer if open
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+
+        // Close activity if drawer is closed
+        else {
             super.onBackPressed();
         }
     }
 
+    /**
+     * Handle creation of menu options
+     * @param menu action bar menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_main, menu);
+
         return true;
     }
 
+    /**
+     * Handle selection of menu items
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
+        // Get id of selected item
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // SettingsActivity pressed
         if (id == R.id.action_settings) {
-            //return true;
-            startActivity(new Intent(GridsActivity.this, Settings.class));
+
+            // Move to settings activity
+            startActivity(new Intent(GridsActivity.this, SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    /**
+     * Handle navigation item selection
+     * @param item selected item
+     * @return status
+     */
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        // Get id of clicked item
         int id = item.getItemId();
 
+        // Send Request button selected
         if (id == R.id.nav_request) {
+
+            // Create dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("New Image Request");
 
-            // Set up the input
+            // Set up the text input
             final EditText input = new EditText(this);
-
             input.setInputType(InputType.TYPE_CLASS_TEXT);
             input.setHint("Please enter your request here");
+
+            // Add input to dialog
             builder.setView(input);
 
+            // Caller activity
             final GridsActivity activity = this;
-            // Set up the buttons
+
+            // Initialize send button
             builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -178,6 +265,7 @@ public class GridsActivity extends AppCompatActivity
                 }
             });
 
+            // Initialize cancel button
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -185,24 +273,14 @@ public class GridsActivity extends AppCompatActivity
                 }
             });
 
+            // Display dialog
             builder.show();
         }
-//        else if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
+        // Close navigation drawer after selection
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 }

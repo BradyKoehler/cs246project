@@ -15,9 +15,9 @@ public class Grid {
 
     /**
      * Default constructor for a Grid
-     * @param name The name of the Grid
+     * @param name the name of the Grid
      */
-    public Grid(String name) {
+    Grid(String name) {
         this.name = name;
         this.width = 3;
         this.height = 3;
@@ -25,13 +25,21 @@ public class Grid {
 
     /**
      * Returns the ID of the Grid
-     * @return
+     * @return id
      */
     public int getId() { return id; }
 
     /**
+     * Set the ID of the Grid
+     * @param id Grid id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
      * Returns the name of the Grid
-     * @return
+     * @return name
      */
     public String getName() {
         return name;
@@ -47,7 +55,7 @@ public class Grid {
 
     /**
      * Gets the width of the Grid
-     * @return
+     * @return width
      */
     public int getWidth() {
         return width;
@@ -55,7 +63,7 @@ public class Grid {
 
     /**
      * Sets the width of the Grid
-     * @param width
+     * @param width Grid width
      */
     public void setWidth(int width) {
         this.width = width;
@@ -63,7 +71,7 @@ public class Grid {
 
     /**
      * Gets the height of the Grid
-     * @return
+     * @return height
      */
     public int getHeight() {
         return height;
@@ -71,7 +79,7 @@ public class Grid {
 
     /**
      * Set the height of the Grid
-     * @param height
+     * @param height Grid height
      */
     public void setHeight(int height) {
         this.height = height;
@@ -79,7 +87,15 @@ public class Grid {
 
     /**
      * Returns the number of tiles contained by the grid
-     * @return
+     * @return count
      */
-    public int getCount() { return count; }
+    int getCount() { return count; }
+
+    /**
+     * Set the number of tiles contained by the grid
+     * @param count Tiles count
+     */
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

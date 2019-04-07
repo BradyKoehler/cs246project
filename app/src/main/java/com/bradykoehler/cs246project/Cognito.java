@@ -7,8 +7,6 @@ import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
@@ -16,174 +14,149 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Auth
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ChallengeContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.regions.Regions;
 
 import static android.content.ContentValues.TAG;
 
-public class Cognito {
-    // ############################################################# Information about Cognito Pool
-    private String poolID = "us-east-1_jj2mY0NQq";
-    private String clientID = "5kpm479btm057jd9738h61gu1e";
-    private String clientSecret = "dgrb6l8jvuqvoiqd1munbpg5gk8abko07jabfd2neprfr11bous";
-    private Regions awsRegion = Regions.US_EAST_1;
-    // ############################################################# End of Information about Cognito Pool
+/**
+ * The Cognito class handles user authentication by utilizing the
+ * Amazon AWS Cognito API.
+ */
+class Cognito {
     private CognitoUserPool userPool;
-    private CognitoUserAttributes userAttributes;
     private Context appContext;
-
     private String userPassword;
 
-    public Cognito(Context context){
+    /**
+     * Creates a new Cognito instance
+     * @param context application context
+     */
+    Cognito(Context context){
+
+        // Store application context
         appContext = context;
-        userPool = new CognitoUserPool(context, this.poolID, this.clientID, this.clientSecret, this.awsRegion);
-        userAttributes = new CognitoUserAttributes();
+
+        // User pool attributes
+        String poolID = "us-east-1_jj2mY0NQq";
+        String clientID = "5kpm479btm057jd9738h61gu1e";
+        String clientSecret = "dgrb6l8jvuqvoiqd1munbpg5gk8abko07jabfd2neprfr11bous";
+        Regions awsRegion = Regions.US_EAST_1;
+
+        // Create user pool object
+        userPool = new CognitoUserPool(context, poolID, clientID, clientSecret, awsRegion);
     }
 
-    public void signUpInBackground(String userId, String password){
-        userPool.signUpInBackground(userId, password, this.userAttributes, null, signUpCallback);
-    }
+    /**
+     * Authenticates a user with username and password
+     * @param username input username
+     * @param password input password
+     */
+    void userLogin(String username, String password){
 
-    SignUpHandler signUpCallback = new SignUpHandler() {
-        @Override
-        public void onSuccess(CognitoUser cognitoUser, boolean userConfirmed, CognitoUserCodeDeliveryDetails cognitoUserCodeDeliveryDetails) {
-            // Sign-up was successful
-            Log.d(TAG, "Sign-up success");
-            Toast.makeText(appContext,"Sign-up success", Toast.LENGTH_LONG).show();
-            // Check if this user (cognitoUser) needs to be confirmed
-            if(!userConfirmed) {
-                // This user must be confirmed and a confirmation code was sent to the user
-                // cognitoUserCodeDeliveryDetails will indicate where the confirmation code was sent
-                // Get the confirmation code from user
-            }
-            else {
-                Toast.makeText(appContext,"Error: User Confirmed before", Toast.LENGTH_LONG).show();
-                // The user has already been confirmed
-            }
-        }
-        @Override
-        public void onFailure(Exception exception) {
-            Toast.makeText(appContext,"Sign-up failed", Toast.LENGTH_LONG).show();
-            Log.d(TAG, "Sign-up failed: " + exception);
-        }
-    };
+        // Create user object
+        CognitoUser cognitoUser =  userPool.getUser(username);
 
-    public void confirmUser(String userId, String code){
-        CognitoUser cognitoUser =  userPool.getUser(userId);
-        cognitoUser.confirmSignUpInBackground(code,false, confirmationCallback);
-    }
-    // Callback handler for confirmSignUp API
-    GenericHandler confirmationCallback = new GenericHandler() {
-
-        @Override
-        public void onSuccess() {
-            // User was successfully confirmed
-            Toast.makeText(appContext,"User Confirmed", Toast.LENGTH_LONG).show();
-
-        }
-
-        @Override
-        public void onFailure(Exception exception) {
-            // User confirmation failed. Check exception for the cause.
-
-        }
-    };
-
-    public void addAttribute(String key, String value){
-        userAttributes.addAttribute(key, value);
-    }
-
-    public void userLogin(String userId, String password){
-        CognitoUser cognitoUser =  userPool.getUser(userId);
+        // Store input password
         this.userPassword = password;
+
+        // Begin authentication process
         cognitoUser.getSessionInBackground(authenticationHandler);
     }
+
     // Callback handler for the sign-in process
-    AuthenticationHandler authenticationHandler = new AuthenticationHandler() {
+    private AuthenticationHandler authenticationHandler = new AuthenticationHandler() {
+
+        /**
+         * Handles authentication challenges
+         * @param continuation passed from previous function
+         */
         @Override
         public void authenticationChallenge(ChallengeContinuation continuation) {
-            // continuation.setChallengeResponse(CognitoServiceConstants.CHLG_RESP_NEW_PASSWORD, "<new password>");
-            // continuation.continueTask();
+            // handle authentication challenges
         }
 
+        /**
+         * Runs after successful sign-in
+         * @param userSession session object for user
+         * @param newDevice device identifier
+         */
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
             Toast.makeText(appContext,"Signed in", Toast.LENGTH_LONG).show();
 
-            // Store tokens
+            // Store tokens in shared preferences
             String accessToken = userSession.getAccessToken().getJWTToken();
             String idToken = userSession.getIdToken().getJWTToken();
+
             SharedPreferences jwt = appContext.getSharedPreferences("jwt", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = jwt.edit();
-            Log.d("Cognito", "AccessToken: " + accessToken);
-            Log.d("Cognito", "IDToken: " + idToken);
+
             editor.putString("accessToken", accessToken);
             editor.putString("idToken", idToken);
-            editor.commit();
+
+            editor.apply();
+
+            // Mark stored credentials as valid
+            SharedPreferences loginData = appContext.getSharedPreferences("loginData", Context.MODE_PRIVATE);
+            SharedPreferences.Editor loginEditor = loginData.edit();
+            loginEditor.putBoolean("valid", true);
+            loginEditor.apply();
 
             Log.d(TAG, "Signed in");
+
+            // Create intent
             Intent intent = new Intent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setClass(appContext, GridsActivity.class);
+
+            // Proceed to main application
             appContext.startActivity(intent);
         }
 
+        /**
+         * Primary authentication function. Sends auth details to server.
+         * @param authenticationContinuation passed from previous function
+         * @param userId unique identifier for user
+         */
         @Override
         public void getAuthenticationDetails(AuthenticationContinuation authenticationContinuation, String userId) {
+
             // The API needs user sign-in credentials to continue
             AuthenticationDetails authenticationDetails = new AuthenticationDetails(userId, userPassword, null);
+
             // Pass the user sign-in credentials to the continuation
             authenticationContinuation.setAuthenticationDetails(authenticationDetails);
+
             // Allow the sign-in to continue
             authenticationContinuation.continueTask();
         }
 
+        /**
+         * Handles the MFA authentication
+         * @param multiFactorAuthenticationContinuation passed from previous function
+         */
         @Override
         public void getMFACode(MultiFactorAuthenticationContinuation multiFactorAuthenticationContinuation) {
-            // Multi-factor authentication is required; get the verification code from user
-            //multiFactorAuthenticationContinuation.setMfaCode(mfaVerificationCode);
+            // handle MFA
+
             // Allow the sign-in process to continue
             multiFactorAuthenticationContinuation.continueTask();
         }
 
+        /**
+         * Runs when the sign-in process fails
+         * @param exception sign-in exception thrown
+         */
         @Override
         public void onFailure(Exception exception) {
             // Sign-in failed, check exception for the cause
             Toast.makeText(appContext,"Sign in Failure", Toast.LENGTH_LONG).show();
+
+            // Mark stored credentials as invalid
+            SharedPreferences loginData = appContext.getSharedPreferences("loginData", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = loginData.edit();
+            editor.putBoolean("valid", false);
+            editor.apply();
         }
     };
-
-    public String getPoolID() {
-        return poolID;
-    }
-
-    public void setPoolID(String poolID) {
-        this.poolID = poolID;
-    }
-
-    public String getClientID() {
-        return clientID;
-    }
-
-    public void setClientID(String clientID) {
-        this.clientID = clientID;
-    }
-
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
-
-    public Regions getAwsRegion() {
-        return awsRegion;
-    }
-
-    public void setAwsRegion(Regions awsRegion) {
-        this.awsRegion = awsRegion;
-    }
-
 }
