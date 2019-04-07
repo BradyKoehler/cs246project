@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CS246 Project</string>
     <string name="title_activity_grids">GridsActivity</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Augmentative Communication</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>
