@@ -20,7 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // Set the correct theme
-        ThemeManager.setTheme(this);
+        ThemeManager.setTheme(this, true);
 
         // Call override function
         super.onCreate(savedInstanceState);
