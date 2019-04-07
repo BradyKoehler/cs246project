@@ -16,8 +16,8 @@ import android.widget.EditText;
 public class LoginActivity extends AppCompatActivity {
 
     // Store references to form inputs
-    EditText mUsernameView = findViewById(R.id.username);
-    EditText mPasswordView = findViewById(R.id.password);
+    EditText mUsernameView;
+    EditText mPasswordView;
 
     /**
      * Initialize settings for the activity
@@ -34,9 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // Get stored authentication data
-        SharedPreferences loginData = LoginActivity.this.getSharedPreferences("loginData", Context.MODE_PRIVATE);
+        SharedPreferences loginData = getSharedPreferences("loginData", Context.MODE_PRIVATE);
         String username = loginData.getString("username", "");
         String password = loginData.getString("password", "");
+
+        // Store references to form inputs
+        mUsernameView = findViewById(R.id.username);
+        mPasswordView = findViewById(R.id.password);
 
         // Fill form with stored data
         mUsernameView.setText(username);
@@ -60,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = mPasswordView.getText().toString();
 
                 // Store input
-                SharedPreferences loginData = LoginActivity.this.getSharedPreferences("loginData", Context.MODE_PRIVATE);
+                SharedPreferences loginData = getSharedPreferences("loginData", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = loginData.edit();
                 editor.putString("username", username);
                 editor.putString("password", password);
