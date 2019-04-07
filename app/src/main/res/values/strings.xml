@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CS246 Project</string>
+    <string name="app_name">Settings</string>
     <string name="title_activity_grids">GridsActivity</string>
     <string name="title_activity_login">Augmentative Communication</string>
     <string name="title_activity_settings">Settings</string>

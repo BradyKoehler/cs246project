@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // Set correct theme
-        ThemeManager.setTheme(this);
+        ThemeManager.setTheme(this, true);
 
         // Call override functions
         super.onCreate(savedInstanceState);
